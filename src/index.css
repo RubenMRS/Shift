@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #09090B;
+  --color-bg-surface: #121217;
+  --color-border: #1F1F2E;
+  --color-border-strong: #2D2D42;
+  --color-signal: #4A7EF5;
+  --color-signal-hover: #3DB6F2;
+  --color-purple: #8B4FE8;
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-error: #F87171;
+
+  --font-heading: "Bricolage Grotesque", sans-serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto; /* Lenis controla tudo */
+  }
+
+  * {
+    scroll-behavior: auto;
+  }
+
+  :root {
+    --text-sm: clamp(0.8125rem, 0.78rem + 0.2vw, 0.875rem);
+    --text-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+    --text-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.125rem);
+    --text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+    --text-2xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
+    --text-hero: clamp(2.75rem, 1.8rem + 4.5vw, 5.5rem);
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+
+  /* Accessibility focus visible */
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Typography Utility Classes overriding default sizes */
+@utility text-sm { font-size: var(--text-sm); line-height: 1.5; }
+@utility text-base { font-size: var(--text-base); line-height: 1.6; }
+@utility text-lg { font-size: var(--text-lg); line-height: 1.5; }
+@utility text-xl { font-size: var(--text-xl); line-height: 1.4; }
+@utility text-2xl { font-size: var(--text-2xl); line-height: 1.3; }
+@utility text-hero { 
+  font-size: var(--text-hero); 
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+/* Custom Gradient Utilities */
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--color-signal-hover), var(--color-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@utility bg-gradient-brand {
+  background: linear-gradient(135deg, var(--color-signal-hover), var(--color-purple));
+}
+
+/* Accessibility Skip Link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--color-signal);
+  color: var(--color-bg-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  z-index: 1000;
+  transition: top 0.2s ease-out;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Prevent animation if reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* LiveBadge Pulsing Dot */
+@keyframes pulse-shift {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.live-badge-dot {
+  animation: pulse-shift 2s ease-out infinite;
+}
