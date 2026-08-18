@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 interface SplitTextProps {
@@ -64,7 +64,7 @@ export function SplitText({ text, className, delay = 0.03, duration = 0.6 }: Spl
         const isHighlight = word === "nunca" || word === "mais" || word === "fica";
         return (
           <motion.span
-            variants={child}
+            variants={child as any}
             style={{ marginRight: '0.25em', display: 'inline-block' }}
             key={index}
             className={isHighlight ? "text-signal" : ""}

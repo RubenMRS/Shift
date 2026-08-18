@@ -11,6 +11,8 @@ export const content = {
     ctaSecondary: "Ver serviços"
   },
   services: {
+    title: "Serviços",
+    subtitle: "Soluções criadas à medida do teu negócio.",
     items: [
       {
         id: "smart-call",
@@ -33,6 +35,7 @@ export const content = {
     ]
   },
   process: {
+    title: "Como funciona",
     items: [
       {
         id: "conversa",

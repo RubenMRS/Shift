@@ -36,10 +36,10 @@ export function About() {
               
               <div className="w-12 h-1 bg-signal mb-8 rounded-full"></div>
               <h3 className="text-2xl font-bold font-heading mb-6 text-text-primary">
-                {content.about.mission}
+                {content.about.missionTitle}
               </h3>
               <p className="text-text-secondary leading-relaxed text-lg">
-                {content.about.description}
+                {content.about.mission1}
               </p>
             </div>
           </ScrollReveal>
