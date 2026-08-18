@@ -1,6 +1,7 @@
 import React from 'react';
 import { content } from '../../data/content';
 import { Button } from '../ui/Button';
+import logo from '../../assets/logo.png';
 
 export function Footer() {
   return (
@@ -38,8 +39,8 @@ export function Footer() {
         <div className="pt-16 flex flex-col md:flex-row gap-12 items-center md:justify-between text-center md:text-left">
           
           <div className="flex flex-col items-center md:items-start gap-4">
-            <a href="#hero" className="inline-block">
-              <img src="/src/assets/logo.png" alt="Shift AI Logo" className="h-16 md:h-24 w-auto object-contain" />
+            <a href="#hero" className="inline-block transition-transform hover:scale-105">
+              <img src={logo} alt="Shift AI Logo" className="h-16 md:h-24 w-auto object-contain" />
             </a>
             <p className="text-sm text-text-secondary max-w-[280px]">
               {content.footer.tagline}

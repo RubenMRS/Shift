@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from "../../lib/utils";
-import { LiveBadge } from '../ui/LiveBadge';
+import logo from '../../assets/logo.png';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +27,7 @@ export function Navbar() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-3 z-50 relative" onClick={closeMenu}>
           {/* O logo real será substituído pela imagem do utilizador */}
-          <img src="/src/assets/logo.png" alt="Shift AI Logo" className="h-16 md:h-20 w-auto object-contain" />
+          <img src={logo} alt="Shift AI Logo" className="h-16 md:h-20 w-auto object-contain" />
         </a>
 
         {/* Desktop Nav */}
