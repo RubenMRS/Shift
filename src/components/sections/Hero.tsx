@@ -1,121 +1,147 @@
-import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { content } from '../../data/content';
 import { Button } from '../ui/Button';
-import { SplitText } from '../bits/SplitText';
-import { BlurText } from '../bits/BlurText';
-import { MagnetButton } from '../bits/MagnetButton';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { useReducedMotion } from '../../lib/useReducedMotion';
 
-function ScrollIndicator() {
-  const { scrollY } = useScroll();
-  const prefersReduced = useReducedMotion();
-  
-  // Usar opacity baseado no scrollY em vez de ler .get() no render
-  const opacity = useTransform(scrollY, [0, 100], [1, 0]);
+function ArrowMark() {
+  return (
+    <span className="grid size-8 place-items-center rounded-full bg-[#071021]/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5" aria-hidden="true">
+      ↗
+    </span>
+  );
+}
 
-  if (prefersReduced) return null;
+function CallConsole() {
+  const bars = [7, 13, 20, 11, 28, 17, 9, 23, 31, 14, 26, 10, 18, 30, 15, 8, 22, 27, 12, 19, 8, 25, 16, 10];
 
   return (
-    <motion.div
-      style={{ opacity }}
-      className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm text-text-secondary flex flex-col items-center gap-2 pointer-events-none"
-    >
-      <span className="font-medium tracking-wide text-xs uppercase">Scroll</span>
-      <motion.svg
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        className="w-5 h-5 text-signal"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-      </motion.svg>
-    </motion.div>
+    <div className="relative mx-auto w-full max-w-[34rem] lg:ml-auto" role="img" aria-label="Demonstração visual de uma chamada atendida pelo Smart Call">
+      <div className="absolute -inset-8 -z-10 rounded-full bg-signal/[0.075] blur-3xl" aria-hidden="true" />
+      <div className="rounded-[1.9rem] border border-white/[0.09] bg-white/[0.035] p-2 shadow-[0_30px_90px_rgba(0,0,0,0.38)]">
+        <div className="console-grid overflow-hidden rounded-[1.45rem] border border-white/[0.075] bg-[#0a101c] shadow-[inset_0_1px_0_rgba(255,255,255,0.055)]">
+          <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
+            <div className="flex items-center gap-3">
+              <span className="relative flex size-2.5">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-50 motion-reduce:animate-none" />
+                <span className="relative inline-flex size-2.5 rounded-full bg-success" />
+              </span>
+              <span className="text-sm font-semibold text-text-primary">Chamada em curso</span>
+            </div>
+            <span className="font-mono text-xs tabular-nums text-text-muted">00:42</span>
+          </div>
+
+          <div className="px-5 py-7 sm:px-7 sm:py-8">
+            <div className="mb-8 flex h-16 items-center justify-center gap-1" aria-hidden="true">
+              {bars.map((height, index) => (
+                <span
+                  key={`${height}-${index}`}
+                  className="voice-bar block w-1 rounded-full bg-signal"
+                  style={{ height: `${height}px`, animationDelay: `${index * -55}ms` }}
+                />
+              ))}
+            </div>
+
+            <div className="space-y-3">
+              <div className="mr-8 rounded-2xl rounded-bl-md bg-white/[0.055] px-4 py-3 text-sm leading-relaxed text-text-secondary">
+                Gostava de marcar uma visita para quinta-feira.
+              </div>
+              <div className="ml-8 rounded-2xl rounded-br-md border border-signal/20 bg-signal/[0.09] px-4 py-3 text-sm leading-relaxed text-text-primary">
+                Tenho disponibilidade às 15:30. Posso confirmar?
+              </div>
+            </div>
+
+            <div className="mt-8 border-t border-border pt-5">
+              <p className="mb-4 text-xs font-semibold text-text-muted">O que acontece durante a chamada</p>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {['Atende', 'Compreende', 'Agenda'].map((step, index) => (
+                  <div key={step} className="flex items-center gap-2 text-xs font-medium text-text-secondary">
+                    <span className="grid size-5 place-items-center rounded-full bg-signal/12 font-mono text-[10px] text-signal">{index + 1}</span>
+                    {step}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute -bottom-5 -left-3 rounded-2xl border border-white/[0.09] bg-bg-surface px-4 py-3 shadow-[0_18px_44px_rgba(0,0,0,0.32)] sm:-left-8">
+        <p className="text-[11px] text-text-muted">Calendário</p>
+        <p className="mt-0.5 text-sm font-semibold text-text-primary">Visita reservada · 15:30</p>
+      </div>
+    </div>
   );
 }
 
 export function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
   const prefersReduced = useReducedMotion();
-  
-  // Parallax: at 0px scroll stays 0, at 400px moves down 100px
-  const parallaxY = useTransform(scrollY, [0, 400], [0, 100]);
+  const entrance = prefersReduced ? {} : { opacity: 1, y: 0 };
 
   return (
-    <section ref={containerRef} id="hero" className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
-      
-      <div className="max-w-[1440px] w-full mx-auto px-6 md:px-12 relative z-10">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
-          
-          {/* Left Column - Text */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left pt-20 lg:pt-0">
-            <div className="inline-block border border-border rounded-sm px-3 py-1 mb-8 bg-bg-primary/50 backdrop-blur-sm">
-              <span className="font-body text-xs font-bold tracking-[0.2em] text-text-secondary uppercase">
-                {content.hero.badge}
-              </span>
-            </div>
+    <section id="hero" className="relative flex min-h-[100dvh] items-center overflow-hidden pb-20 pt-32 sm:pt-36 lg:pb-24 lg:pt-40">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-signal/40 to-transparent" aria-hidden="true" />
+      <div className="page-shell">
+        <div className="grid items-center gap-20 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12 xl:gap-20">
+          <div className="max-w-[48rem]">
+            <motion.div initial={prefersReduced ? false : { opacity: 0, y: 16 }} animate={entrance} transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }} className="mb-7 flex items-center gap-3 text-sm font-medium text-text-secondary">
+              <span className="size-2 rounded-full bg-success shadow-[0_0_0_5px_rgba(101,214,166,0.08)]" />
+              {content.hero.status}
+            </motion.div>
 
-            <h1 className="text-hero mb-6 text-text-primary text-balance w-full">
-              <SplitText 
-                text={content.hero.title}
-                delay={0.03}
-                duration={0.6}
-                className="justify-center lg:justify-start"
-              />
-            </h1>
+            <motion.h1
+              initial={prefersReduced ? false : { opacity: 0, y: 28 }}
+              animate={entrance}
+              transition={{ duration: 0.82, delay: 0.08, ease: [0.32, 0.72, 0, 1] }}
+              className="text-display max-w-[13ch] text-balance"
+            >
+              {content.hero.title}
+            </motion.h1>
 
-            <div className="text-lg md:text-xl text-text-secondary mb-10 max-w-2xl leading-relaxed">
-              <BlurText 
-                text={content.hero.subtitle}
-                delay={0.6} 
-                className="justify-center lg:justify-start"
-              />
-            </div>
+            <motion.p
+              initial={prefersReduced ? false : { opacity: 0, y: 24 }}
+              animate={entrance}
+              transition={{ duration: 0.78, delay: 0.18, ease: [0.32, 0.72, 0, 1] }}
+              className="text-lead mt-8 max-w-[40rem] text-text-secondary"
+            >
+              {content.hero.subtitle}
+            </motion.p>
 
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6">
-              <MagnetButton>
-                <Button variant="primary" asChild>
-                  <a href="#contacto">{content.hero.ctaPrimary}</a>
-                </Button>
-              </MagnetButton>
-              
-              <Button variant="ghost" asChild>
-                <a href="#servicos" className="group">
-                  {content.hero.ctaSecondary}
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-y-1"><path d="m6 9 6 6 6-6"/></svg>
-                </a>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+              animate={entrance}
+              transition={{ duration: 0.72, delay: 0.28, ease: [0.32, 0.72, 0, 1] }}
+              className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center"
+            >
+              <Button variant="primary" asChild>
+                <a href="#contacto">{content.hero.ctaPrimary}<ArrowMark /></a>
               </Button>
-            </div>
+              <Button variant="ghost" asChild>
+                <a href="#servicos">{content.hero.ctaSecondary}<span aria-hidden="true">↓</span></a>
+              </Button>
+            </motion.div>
+
+            <motion.ul
+              initial={prefersReduced ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: prefersReduced ? 0 : 0.4 }}
+              className="mt-11 flex max-w-[40rem] flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5 text-xs text-text-muted"
+            >
+              {content.hero.notes.map((note) => (
+                <li key={note} className="flex items-center gap-2"><span className="size-1 rounded-full bg-signal" />{note}</li>
+              ))}
+            </motion.ul>
           </div>
 
-          {/* Right Column - Parallax Element */}
           <motion.div
-            style={prefersReduced ? undefined : { y: parallaxY }}
-            className="hidden lg:flex h-full items-center justify-center relative w-full"
+            initial={prefersReduced ? false : { opacity: 0, x: 34, y: 10 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.95, delay: prefersReduced ? 0 : 0.18, ease: [0.32, 0.72, 0, 1] }}
+            className="pb-5"
           >
-            {/* Abstract Gradient Orb for Depth/Parallax */}
-            <div className="relative w-full aspect-square max-w-[500px]">
-              <div className="absolute inset-0 bg-gradient-brand rounded-full opacity-20 blur-[100px] animate-pulse-shift"></div>
-              
-              {/* Premium wireframe elements inside the orb */}
-              <div className="absolute inset-10 border border-signal/20 rounded-full"></div>
-              <div className="absolute inset-20 border border-signal/40 rounded-full border-dashed"></div>
-              <div className="absolute inset-32 border border-signal/10 rounded-full"></div>
-              
-              {/* Center point */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-signal shadow-[0_0_20px_#4A7EF5]"></div>
-            </div>
+            <CallConsole />
           </motion.div>
-
         </div>
-
       </div>
-
-      <ScrollIndicator />
     </section>
   );
 }

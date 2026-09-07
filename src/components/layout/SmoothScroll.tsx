@@ -1,44 +1,38 @@
-import React, { useEffect } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import Lenis from 'lenis';
 
-export function SmoothScroll({ children }: { children: React.ReactNode }) {
+export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.95,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      touchMultiplier: 2,
+      touchMultiplier: 1.2,
     });
+    let frame = 0;
 
-    function raf(time: number) {
+    const raf = (time: number) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+      frame = requestAnimationFrame(raf);
+    };
+    frame = requestAnimationFrame(raf);
 
-    requestAnimationFrame(raf);
-
-    // Intercetar cliques em âncoras para usar o scroll do Lenis
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest('a');
-      
-      if (!anchor) return;
-      
-      const href = anchor.getAttribute('href');
-      
-      if (href && href.startsWith('#') && href.length > 1) {
-        e.preventDefault();
-        lenis.scrollTo(href, { offset: -80 }); // Offset para a navbar
-      }
+    const handleAnchorClick = (event: MouseEvent) => {
+      const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+      const href = anchor?.getAttribute('href');
+      if (!href || href === '#') return;
+      event.preventDefault();
+      lenis.scrollTo(href, { offset: -104 });
     };
 
-    document.documentElement.addEventListener('click', handleAnchorClick);
-
-    // Clean up
+    document.addEventListener('click', handleAnchorClick);
     return () => {
-      document.documentElement.removeEventListener('click', handleAnchorClick);
+      cancelAnimationFrame(frame);
+      document.removeEventListener('click', handleAnchorClick);
       lenis.destroy();
     };
   }, []);

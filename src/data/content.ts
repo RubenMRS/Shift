@@ -1,88 +1,127 @@
 export const content = {
   meta: {
-    title: "Shift AI — Rececionista de IA para o teu negócio",
-    description: "Smart Call é o rececionista de IA que atende chamadas, marca reuniões no teu calendário e organiza tudo automaticamente. Sem falhar, sem pausas.",
+    title: "SHIFT — Soluções de IA para atendimento e automação",
+    description:
+      "A SHIFT cria agentes de voz, chatbots multicanal e automações à medida para negócios que não querem perder contactos nem tempo em tarefas repetitivas.",
   },
   hero: {
-    badge: "Early Access — Vagas Limitadas",
-    title: "A tua receção nunca mais fica sem atender.",
-    subtitle: "Smart Call é o rececionista de IA que atende chamadas, marca reuniões no teu calendário e organiza tudo automaticamente. Sem falhar, sem pausas.",
-    ctaPrimary: "Pedir Early Access",
-    ctaSecondary: "Ver serviços"
+    status: "Smart Call em acesso antecipado",
+    title: "Nenhuma oportunidade fica por atender.",
+    subtitle:
+      "A SHIFT cria agentes de IA que atendem chamadas, respondem a clientes e ligam o atendimento às ferramentas que o teu negócio já usa.",
+    ctaPrimary: "Pedir demonstração",
+    ctaSecondary: "Conhecer as soluções",
+    notes: ["Demonstração sem custos", "Configuração acompanhada", "Solução ajustada ao negócio"],
   },
   services: {
-    title: "Serviços",
-    subtitle: "Soluções criadas à medida do teu negócio.",
+    title: "Atendimento ligado à operação.",
+    subtitle:
+      "Começamos pelo ponto onde o teu negócio perde mais tempo ou oportunidades e construímos a automação à volta dele.",
     items: [
       {
         id: "smart-call",
         title: "Smart Call",
-        icon: "Phone",
-        description: "Um agente de voz com IA que atende as tuas chamadas, responde a perguntas frequentes e marca compromissos diretamente no teu calendário. Sem esperas, sem chamadas perdidas."
+        label: "Voz",
+        description:
+          "Um agente de voz com IA que atende chamadas, esclarece perguntas frequentes e marca compromissos diretamente no calendário.",
+        outcome: "Menos chamadas perdidas. Mais pedidos tratados no momento certo.",
       },
       {
         id: "chatbot-multicanal",
-        title: "Chatbot Multicanal",
-        icon: "MessageCircle",
-        description: "O mesmo cérebro do Smart Call, mas em texto: WhatsApp, Instagram e Facebook. Responde clientes 24/7 e organiza os dados automaticamente."
+        title: "Smart Chat",
+        label: "Mensagem",
+        description:
+          "Atendimento por texto para WhatsApp, Instagram e Facebook, com respostas consistentes e informação organizada.",
+        outcome: "O mesmo contexto, em todos os canais.",
       },
       {
         id: "automacoes-medida",
-        title: "Automações à Medida",
-        icon: "Settings",
-        description: "Cada negócio é diferente. Construímos fluxos de automação personalizados para o teu processo — desde CRMs a faturação."
-      }
-    ]
+        title: "Automações à medida",
+        label: "Operação",
+        description:
+          "Fluxos personalizados que ligam atendimento, CRM, faturação e as ferramentas que já fazem parte do teu processo.",
+        outcome: "Menos tarefas manuais entre sistemas.",
+      },
+    ],
   },
   process: {
-    title: "Como funciona",
+    title: "Da primeira conversa a uma solução pronta a trabalhar.",
+    subtitle:
+      "Sem pacotes fechados. Cada implementação começa no processo real da empresa e avança com validação em cada etapa.",
     items: [
       {
         id: "conversa",
-        title: "Conversa inicial",
-        description: "Percebemos o teu negócio, os teus desafios e o que queres automatizar."
+        title: "Mapeamos o atendimento",
+        description: "Percebemos onde entram os contactos, o que a equipa responde e onde existem perdas ou repetição.",
       },
       {
         id: "configuracao",
-        title: "Configuração",
-        description: "Montamos o agente com os teus dados, respostas e integrações necessárias."
+        title: "Construímos o fluxo",
+        description: "Configuramos o agente, o conhecimento, as regras e as integrações necessárias para o teu caso.",
       },
       {
         id: "testes",
-        title: "Testes",
-        description: "Afinamos tudo até o agente responder exatamente como o teu negócio precisa."
+        title: "Testamos situações reais",
+        description: "Validamos respostas, exceções e encaminhamentos antes de qualquer utilização em produção.",
       },
       {
         id: "lancamento",
-        title: "Lançamento",
-        description: "Entra em produção e monitorizamos tudo para garantir que funciona sem falhas."
-      }
-    ]
+        title: "Acompanhamos a operação",
+        description: "Lançamos de forma controlada e afinamos o comportamento com base no que acontece no dia a dia.",
+      },
+    ],
   },
   about: {
-    title: "Quem está por trás da Shift AI",
-    intro1: "Somos três amigos que juntámos as nossas áreas para construir tecnologia que tira trabalho repetitivo das mãos das empresas. Começámos pelo Smart Call porque vimos negócios a perder clientes só por não atenderem o telefone a tempo.",
-    intro2: "Estamos ainda em fase de testes, a afinar tudo antes de escalar. Acreditamos que a automação com IA deve ser acessível a qualquer negócio — não apenas às grandes empresas com orçamentos enormes.",
-    missionTitle: "O que nos move",
-    mission1: "Cada chamada perdida é uma oportunidade que desaparece. Cada mensagem sem resposta é um cliente que vai à concorrência. Nós construímos ferramentas para que isso não aconteça — agentes de IA que trabalham 24 horas, sem pausas, sem falhas.",
-    mission2: "A nossa abordagem é simples: ouvir o negócio, construir a solução certa e afinar até funcionar perfeitamente. Sem promessas vazias, sem tecnologia por tecnologia. Só resultados."
+    title: "Tecnologia útil começa por ouvir o negócio.",
+    intro:
+      "A SHIFT nasceu da junção de três áreas com um objetivo comum: retirar trabalho repetitivo das equipas sem tornar a operação mais complicada.",
+    detail:
+      "Começámos pelo Smart Call porque vimos negócios a perder clientes simplesmente por não conseguirem atender a tempo. Estamos a trabalhar com os primeiros parceiros, a testar e a afinar cada implementação antes de escalar.",
+    principle:
+      "Não aplicamos IA porque está na moda. Aplicamo-la onde resolve um problema concreto, integra com o processo existente e pode ser medida no trabalho diário.",
+  },
+  faq: {
+    title: "Antes de começares, o essencial.",
+    subtitle:
+      "Respostas diretas sobre implementação, equipa, integrações e proteção de dados.",
+    items: [
+      {
+        question: "O Smart Call substitui a equipa?",
+        answer:
+          "Não. Trata chamadas repetitivas e pedidos previsíveis, deixando exceções e conversas sensíveis para pessoas.",
+      },
+      {
+        question: "Funciona com as ferramentas que já usamos?",
+        answer:
+          "Mapeamos primeiro o processo e as integrações necessárias. Só propomos ligações que sejam tecnicamente viáveis e úteis para a operação.",
+      },
+      {
+        question: "Quanto tempo demora a implementação?",
+        answer:
+          "Depende dos fluxos, conhecimento e integrações. Depois da primeira conversa, apresentamos âmbito, etapas e prazo antes de avançar.",
+      },
+      {
+        question: "Como são tratados os dados?",
+        answer:
+          "Definimos acesso, conservação e fornecedores para cada projeto. Recolhemos apenas os dados necessários e documentamos o tratamento.",
+      },
+      {
+        question: "Podemos testar antes de lançar?",
+        answer:
+          "Sim. A demonstração mostra o fluxo aplicado ao teu caso. A entrada em produção acontece de forma controlada, depois dos testes.",
+      },
+    ],
   },
   contact: {
+    title: "Vê o Smart Call aplicado ao teu negócio.",
+    subtitle:
+      "Conta-nos como funciona hoje o teu atendimento. Preparamos uma demonstração focada no teu caso, sem compromisso.",
     email: "geral@shiftai.pt",
     responseTime: "Respondemos normalmente em menos de 24 horas nos dias úteis.",
-    betaNote: "Estamos a aceitar parceiros em condições especiais de fundador. Número limitado de vagas para Early Access.",
-    demoCard: {
-      title: "Demonstração gratuita",
-      description: "Mostramos-te o Smart Call a funcionar com o teu negócio. Sem compromisso, sem custos."
-    }
-  },
-  finalCta: {
-    title: "Junta-te ao Early Access",
-    description: "Estamos a afinar o Smart Call com os primeiros parceiros. Adere agora e garante condições de fundador.",
-    button: "Pedir demonstração"
+    betaNote: "Estamos a aceitar um número limitado de parceiros para esta fase de acesso antecipado.",
   },
   footer: {
-    tagline: "Automação inteligente para o teu negócio.",
-    copyright: "© 2025 Shift AI Solutions. Todos os direitos reservados."
-  }
+    tagline: "Soluções de IA ligadas ao trabalho real.",
+    copyright: "© 2026 SHIFT AI Solutions. Todos os direitos reservados.",
+  },
 };

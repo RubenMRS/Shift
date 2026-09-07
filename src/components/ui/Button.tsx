@@ -1,58 +1,53 @@
-import React from "react";
-import { cn } from "../../lib/utils";
-import { Slot } from "@radix-ui/react-slot";
-import { motion, type HTMLMotionProps } from "framer-motion";
-import { useReducedMotion } from "../../lib/useReducedMotion";
+import React from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { motion, type HTMLMotionProps } from 'framer-motion';
+import { cn } from '../../lib/utils';
+import { useReducedMotion } from '../../lib/useReducedMotion';
 
-interface ButtonProps extends HTMLMotionProps<"button"> {
-  variant?: "primary" | "secondary" | "ghost";
+interface ButtonProps extends HTMLMotionProps<'button'> {
+  variant?: 'primary' | 'secondary' | 'ghost';
   asChild?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", asChild = false, ...props }, ref) => {
+  ({ className, variant = 'primary', asChild = false, ...props }, ref) => {
     const prefersReduced = useReducedMotion();
-    
-    const Comp = asChild ? Slot : "button";
-    
-    const baseStyles = "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary disabled:opacity-50 disabled:pointer-events-none";
-    
+    const Component = asChild ? Slot : 'button';
+    const base = 'group inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition-[color,background-color,border-color,transform,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50';
     const variants = {
-      primary: "bg-signal text-white",
-      secondary: "bg-bg-surface text-text-primary border border-border hover:bg-bg-surface/80",
-      ghost: "text-text-secondary hover:text-text-primary hover:bg-bg-surface",
+      primary: 'bg-signal text-[#071021] shadow-[0_12px_40px_rgba(70,103,194,0.24)] hover:bg-signal-hover',
+      secondary: 'border border-border-strong bg-white/[0.035] text-text-primary hover:border-signal/60 hover:bg-white/[0.065]',
+      ghost: 'px-2 text-text-secondary hover:text-text-primary',
     };
 
-    // Radix Slot doesn't accept Framer Motion props directly well when using asChild without a motion wrapper.
-    // If it's a child (like an <a>), we'll wrap it in a motion span.
-    if (asChild) {
+    const element = (
+      <Component ref={ref} className={cn(base, variants[variant], className)} {...(props as Record<string, unknown>)} />
+    );
+
+    if (!asChild) {
       return (
-        <motion.span
-          whileHover={prefersReduced ? {} : { scale: 0.98, boxShadow: variant === 'primary' ? '0 0 20px rgba(74, 126, 245, 0.4)' : 'none' }}
-          whileTap={prefersReduced ? {} : { scale: 0.96 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className="inline-block"
-        >
-          <Comp
-            ref={ref}
-            className={cn(baseStyles, variants[variant], className)}
-            {...(props as any)}
-          />
-        </motion.span>
+        <motion.button
+          ref={ref}
+          whileHover={prefersReduced ? undefined : { y: -2 }}
+          whileTap={prefersReduced ? undefined : { scale: 0.98 }}
+          transition={{ duration: 0.32, ease: [0.32, 0.72, 0, 1] }}
+          className={cn(base, variants[variant], className)}
+          {...props}
+        />
       );
     }
 
     return (
-      <motion.button
-        ref={ref}
-        whileHover={prefersReduced ? {} : { scale: 0.98, boxShadow: variant === 'primary' ? '0 0 20px rgba(74, 126, 245, 0.4)' : 'none' }}
-        whileTap={prefersReduced ? {} : { scale: 0.96 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-        className={cn(baseStyles, variants[variant], className)}
-        {...props}
-      />
+      <motion.span
+        className="inline-flex"
+        whileHover={prefersReduced ? undefined : { y: -2 }}
+        whileTap={prefersReduced ? undefined : { scale: 0.98 }}
+        transition={{ duration: 0.32, ease: [0.32, 0.72, 0, 1] }}
+      >
+        {element}
+      </motion.span>
     );
-  }
+  },
 );
 
-Button.displayName = "Button";
+Button.displayName = 'Button';

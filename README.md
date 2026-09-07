@@ -1,32 +1,34 @@
-# React + TypeScript + Vite
+# SHIFT AI Solutions
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Website institucional da SHIFT, desenvolvido com React, TypeScript, Vite e Tailwind CSS.
 
-Currently, two official plugins are available:
+## Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Verificação
+
+```bash
+npm run lint
+npm run build
+```
+
+## Formulário de contacto
+
+Cria uma conta gratuita no hCaptcha e configura as variáveis documentadas em `.env.example`.
+
+- `VITE_HCAPTCHA_SITE_KEY`: chave pública incluída no build.
+- `HCAPTCHA_SECRET`: segredo guardado no ambiente Cloudflare Pages.
+- `HCAPTCHA_SITE_KEY`: chave pública validada também no servidor.
+- `CONTACT_WEBHOOK_URL`: endpoint seguro que recebe pedidos já validados.
+
+O segredo nunca deve usar o prefixo `VITE_`.
+
+Em desenvolvimento, o frontend usa a chave oficial de teste do hCaptcha. A chave de teste não protege produção.
+
+## Publicação
+
+O projeto inclui uma Cloudflare Pages Function em `functions/api/contact.js` e uma regra SPA em `public/_redirects`.

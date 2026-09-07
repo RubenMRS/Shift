@@ -1,62 +1,32 @@
-import React from 'react';
 import { content } from '../../data/content';
-import { Button } from '../ui/Button';
 import logo from '../../assets/logo.png';
 
 export function Footer() {
   return (
-    <footer className="pt-24 pb-12 bg-bg-surface border-t border-border relative overflow-hidden">
-      
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-brand opacity-[0.05] blur-[100px] rounded-full pointer-events-none"></div>
-      
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
-        
-        {/* Top Section: Premium CTA */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10 pb-16 border-b border-border">
-          <div className="text-center md:text-left">
-            <h2 className="text-3xl md:text-5xl font-bold font-heading mb-4 text-text-primary">
-              Pronto para automatizar <span className="text-gradient">o seu negócio?</span>
-            </h2>
-            <p className="text-text-secondary text-lg max-w-md">
-              Junta-te ao nosso Early Access e transforma o teu atendimento.
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button variant="primary" asChild>
-              <a href="#contacto">Falar Connosco</a>
-            </Button>
-            <Button variant="secondary" className="border-border hover:border-signal" asChild>
-              <a href="https://wa.me/351900000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>
-                WhatsApp
-              </a>
-            </Button>
-          </div>
-        </div>
-
-        {/* Bottom Section: Links & Logo */}
-        <div className="pt-16 flex flex-col md:flex-row gap-12 items-center md:justify-between text-center md:text-left">
-          
-          <div className="flex flex-col items-center md:items-start gap-4">
-            <a href="#hero" className="inline-block transition-transform hover:scale-105">
-              <img src={logo} alt="Shift AI Logo" className="h-16 md:h-24 w-auto object-contain" />
+    <footer className="border-t border-border bg-bg-primary py-10">
+      <div className="page-shell">
+        <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+          <div>
+            <a href="/#hero" aria-label="SHIFT — voltar ao início" className="inline-flex transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5">
+              <img src={logo} alt="SHIFT AI Solutions" className="h-14 w-auto object-contain" />
             </a>
-            <p className="text-sm text-text-secondary max-w-[280px]">
-              {content.footer.tagline}
-            </p>
+            <p className="mt-4 text-sm text-text-secondary">{content.footer.tagline}</p>
           </div>
 
-          <nav className="flex gap-8" aria-label="Links do rodapé">
-            <a href="#servicos" className="text-sm text-text-secondary hover:text-signal transition-colors focus-visible:outline-none focus-visible:text-signal">Serviços</a>
-            <a href="#sobre" className="text-sm text-text-secondary hover:text-signal transition-colors focus-visible:outline-none focus-visible:text-signal">Sobre</a>
-            <a href="#contacto" className="text-sm text-text-secondary hover:text-signal transition-colors focus-visible:outline-none focus-visible:text-signal">Contacto</a>
+          <nav aria-label="Navegação do rodapé" className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-text-secondary md:justify-end">
+            <a href="/#servicos" className="transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-text-primary">Soluções</a>
+            <a href="/#faq" className="transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-text-primary">FAQ</a>
+            <a href={`mailto:${content.contact.email}`} className="transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-text-primary">Email</a>
           </nav>
-
         </div>
 
-        <div className="mt-16 pt-8 text-center text-xs text-text-secondary">
+        <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 text-xs text-text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>{content.footer.copyright}</p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <a href="/privacidade" className="transition-colors hover:text-text-primary">Privacidade</a>
+            <a href="/termos" className="transition-colors hover:text-text-primary">Termos de utilização</a>
+            <span>Portugal · Projetos em acesso antecipado</span>
+          </div>
         </div>
       </div>
     </footer>
