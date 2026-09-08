@@ -14,20 +14,22 @@ npm run dev
 ```bash
 npm run lint
 npm run build
+npm test
 ```
+
+O build gera HTML estático para as rotas públicas em `dist/` e hidrata a aplicação React quando o JavaScript está disponível. A configuração está em `scripts/prerender.mjs` e os metadados das páginas em `src/data/routes.ts`.
+
+O relatório da auditoria está em [SHIFT-WEBSITE-AUDIT.md](./SHIFT-WEBSITE-AUDIT.md).
 
 ## Formulário de contacto
 
-Cria uma conta gratuita no hCaptcha e configura as variáveis documentadas em `.env.example`.
+O formulário usa proteção anti-spam própria, sem CAPTCHA externo. Para envio direto por email, configura o Resend ou um webhook seguro no ambiente Cloudflare Pages.
 
-- `VITE_HCAPTCHA_SITE_KEY`: chave pública incluída no build.
-- `HCAPTCHA_SECRET`: segredo guardado no ambiente Cloudflare Pages.
-- `HCAPTCHA_SITE_KEY`: chave pública validada também no servidor.
+- `RESEND_API_KEY`: chave privada do Resend.
+- `CONTACT_FROM_EMAIL`: remetente verificado no Resend, opcional.
 - `CONTACT_WEBHOOK_URL`: endpoint seguro que recebe pedidos já validados.
 
-O segredo nunca deve usar o prefixo `VITE_`.
-
-Em desenvolvimento, o frontend usa a chave oficial de teste do hCaptcha. A chave de teste não protege produção.
+Os pedidos são enviados para `geral@shift.pt`. Sem Resend ou webhook configurado, o formulário abre um email pré-preenchido como fallback.
 
 ## Publicação
 

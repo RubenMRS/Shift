@@ -2,7 +2,7 @@ import { content } from '../../data/content';
 import { Section } from './Section';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
-function RouteDiagram({ type }: { type: 'voice' | 'chat' | 'automation' }) {
+function RouteDiagram({ type }: { type: 'voice' | 'automation' }) {
   if (type === 'voice') {
     return (
       <div className="relative mt-10 overflow-hidden rounded-2xl border border-white/[0.075] bg-[#080d17] p-5 sm:p-6">
@@ -36,7 +36,7 @@ function RouteDiagram({ type }: { type: 'voice' | 'chat' | 'automation' }) {
 }
 
 export function Services() {
-  const [smartCall, smartChat, automation] = content.services.items;
+  const [smartCall, automation] = content.services.items;
 
   return (
     <Section id="servicos" className="border-t border-border bg-bg-primary">
@@ -60,7 +60,7 @@ export function Services() {
                     <p className="mb-3 text-xs font-semibold text-signal">{smartCall.label}</p>
                     <h3 className="font-heading text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">{smartCall.title}</h3>
                   </div>
-                  <span className="rounded-full border border-success/20 bg-success/[0.07] px-3 py-1.5 text-xs font-medium text-success">Disponível 24/7</span>
+                  <span className="rounded-full border border-success/20 bg-success/[0.07] px-3 py-1.5 text-xs font-medium text-success">Acesso antecipado</span>
                 </div>
                 <p className="mt-6 max-w-[34rem] text-base leading-relaxed text-text-secondary sm:text-lg">{smartCall.description}</p>
                 <RouteDiagram type="voice" />
@@ -77,18 +77,7 @@ export function Services() {
                   ))}
                 </dl>
                 <p className="mt-auto max-w-[34rem] pt-7 text-sm font-semibold leading-relaxed text-text-primary">{smartCall.outcome}</p>
-              </div>
-            </article>
-          </ScrollReveal>
-
-          <ScrollReveal className="lg:col-span-5" delay={0.08} direction="left">
-            <article className="h-full rounded-[1.65rem] border border-white/[0.08] bg-white/[0.03] p-1.5">
-              <div className="flex h-full flex-col rounded-[1.3rem] border border-white/[0.065] bg-bg-surface p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-7">
-                <p className="mb-3 text-xs font-semibold text-signal">{smartChat.label}</p>
-                <h3 className="font-heading text-2xl font-semibold tracking-[-0.04em]">{smartChat.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-text-secondary sm:text-base">{smartChat.description}</p>
-                <RouteDiagram type="chat" />
-                <p className="mt-auto pt-5 text-sm font-semibold text-text-primary">{smartChat.outcome}</p>
+                <a href="#contacto" className="text-link mt-4">Conhecer o Smart Call ↗</a>
               </div>
             </article>
           </ScrollReveal>
@@ -101,6 +90,7 @@ export function Services() {
                 <p className="mt-4 text-sm leading-relaxed text-text-secondary sm:text-base">{automation.description}</p>
                 <RouteDiagram type="automation" />
                 <p className="mt-auto pt-5 text-sm font-semibold text-text-primary">{automation.outcome}</p>
+                <a href="#contacto" className="text-link mt-4">Avaliar uma automação ↗</a>
               </div>
             </article>
           </ScrollReveal>

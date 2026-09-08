@@ -1,7 +1,9 @@
-import { createRoot } from 'react-dom/client'
-import '@fontsource-variable/bricolage-grotesque'
-import '@fontsource-variable/manrope'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-createRoot(document.getElementById('root')!).render(<App />)
+document.documentElement.classList.add('js');
+const root = document.getElementById('root')!;
+const app = <App path={window.location.pathname} />;
+if (root.hasChildNodes()) hydrateRoot(root, app);
+else createRoot(root).render(app);

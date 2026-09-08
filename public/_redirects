@@ -1,4 +1,3 @@
-/privacidade /index.html 200
-/privacidade/ /index.html 200
-/termos /index.html 200
-/termos/ /index.html 200
+# Domain redirects (HTTP and www) must be configured in Cloudflare zone rules.
+/privacidade/ /privacidade 301
+/termos/ /termos 301

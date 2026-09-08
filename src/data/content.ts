@@ -1,16 +1,16 @@
 export const content = {
   meta: {
-    title: "SHIFT — Soluções de IA para atendimento e automação",
+    title: "SHIFT Solutions",
     description:
-      "A SHIFT cria agentes de voz, chatbots multicanal e automações à medida para negócios que não querem perder contactos nem tempo em tarefas repetitivas.",
+      "A SHIFT cria agentes de voz e automações à medida para negócios que não querem perder contactos nem tempo em tarefas repetitivas.",
   },
   hero: {
     status: "Smart Call em acesso antecipado",
-    title: "Nenhuma oportunidade fica por atender.",
+    title: "A tua receção nunca mais fica sem atender.",
     subtitle:
-      "A SHIFT cria agentes de IA que atendem chamadas, respondem a clientes e ligam o atendimento às ferramentas que o teu negócio já usa.",
-    ctaPrimary: "Pedir demonstração",
-    ctaSecondary: "Conhecer as soluções",
+      "O Smart Call é o agente de voz com IA da SHIFT para atender chamadas, responder a perguntas e tratar marcações. Configuramos o fluxo e avaliamos a ligação às ferramentas da tua empresa.",
+    ctaPrimary: "Marcar demonstração",
+    ctaSecondary: "Ver demonstração",
     notes: ["Demonstração sem custos", "Configuração acompanhada", "Solução ajustada ao negócio"],
   },
   services: {
@@ -27,19 +27,11 @@ export const content = {
         outcome: "Menos chamadas perdidas. Mais pedidos tratados no momento certo.",
       },
       {
-        id: "chatbot-multicanal",
-        title: "Smart Chat",
-        label: "Mensagem",
-        description:
-          "Atendimento por texto para WhatsApp, Instagram e Facebook, com respostas consistentes e informação organizada.",
-        outcome: "O mesmo contexto, em todos os canais.",
-      },
-      {
         id: "automacoes-medida",
         title: "Automações à medida",
         label: "Operação",
         description:
-          "Fluxos personalizados que ligam atendimento, CRM, faturação e as ferramentas que já fazem parte do teu processo.",
+          "Fluxos personalizados para reduzir tarefas manuais. Avaliamos as ligações entre atendimento e sistemas existentes antes da implementação.",
         outcome: "Menos tarefas manuais entre sistemas.",
       },
     ],
@@ -74,9 +66,9 @@ export const content = {
   about: {
     title: "Tecnologia útil começa por ouvir o negócio.",
     intro:
-      "A SHIFT nasceu da junção de três áreas com um objetivo comum: retirar trabalho repetitivo das equipas sem tornar a operação mais complicada.",
+      "A equipa SHIFT, em Portugal, desenvolve atendimento e automações à medida para retirar trabalho repetitivo das equipas.",
     detail:
-      "Começámos pelo Smart Call porque vimos negócios a perder clientes simplesmente por não conseguirem atender a tempo. Estamos a trabalhar com os primeiros parceiros, a testar e a afinar cada implementação antes de escalar.",
+      "O foco inicial é o Smart Call, em acesso antecipado. Cada implementação começa com o processo real da empresa e passa por testes antes do lançamento.",
     principle:
       "Não aplicamos IA porque está na moda. Aplicamo-la onde resolve um problema concreto, integra com o processo existente e pode ser medida no trabalho diário.",
   },
@@ -90,6 +82,10 @@ export const content = {
         answer:
           "Não. Trata chamadas repetitivas e pedidos previsíveis, deixando exceções e conversas sensíveis para pessoas.",
       },
+      { question: "Pode atender fora do horário?", answer: "O horário de atendimento é definido na implementação. Podemos avaliar atendimento fora do expediente, mas disponibilidade e condições têm de ser confirmadas no projeto." },
+      { question: "Tenho de mudar o meu número ou calendário?", answer: "Não partimos desse pressuposto. Avaliamos o número, calendário e software existentes e confirmamos o que é tecnicamente possível antes de propor mudanças." },
+      { question: "E se for preciso falar com uma pessoa?", answer: "Definimos o encaminhamento para a equipa. Uma transferência durante a chamada exige configuração e testes; não é uma capacidade garantida em todas as implementações." },
+      { question: "Pode cancelar ou reagendar?", answer: "Esses pedidos precisam de regras e acessos próprios. Confirma-os na demonstração; não assumimos suporte sem validar a integração." },
       {
         question: "Funciona com as ferramentas que já usamos?",
         answer:
@@ -113,12 +109,12 @@ export const content = {
     ],
   },
   contact: {
-    title: "Vê o Smart Call aplicado ao teu negócio.",
+    title: "Queres ouvir como a SHIFT atenderia os teus clientes?",
     subtitle:
       "Conta-nos como funciona hoje o teu atendimento. Preparamos uma demonstração focada no teu caso, sem compromisso.",
-    email: "geral@shiftai.pt",
-    responseTime: "Respondemos normalmente em menos de 24 horas nos dias úteis.",
-    betaNote: "Estamos a aceitar um número limitado de parceiros para esta fase de acesso antecipado.",
+    email: "geral@shift.pt",
+    responseTime: "A equipa entra em contacto para perceber o pedido e combinar os próximos passos.",
+    betaNote: "Smart Call em acesso antecipado. Âmbito e disponibilidade confirmados na demonstração.",
   },
   footer: {
     tagline: "Soluções de IA ligadas ao trabalho real.",

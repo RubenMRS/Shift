@@ -1,12 +1,9 @@
-import { useCallback, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { useCallback, useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { trackEvent } from '../../lib/analytics';
 import { content } from '../../data/content';
 import { Button } from '../ui/Button';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { Section } from './Section';
-
-const TEST_SITE_KEY = '10000000-ffff-ffff-ffff-000000000001';
-const HCAPTCHA_SITE_KEY = import.meta.env.VITE_HCAPTCHA_SITE_KEY || (import.meta.env.DEV ? TEST_SITE_KEY : '');
 
 type FormFields = {
   name: string;
@@ -22,6 +19,12 @@ type FormStatus = { type: 'idle' | 'loading' | 'success' | 'error'; message: str
 const initialFields: FormFields = { name: '', email: '', company: '', message: '', website: '' };
 const initialErrors: FormErrors = { name: '', email: '', company: '', message: '' };
 
+function buildMailto(fields: FormFields) {
+  const subject = encodeURIComponent('Pedido de demonstração SHIFT');
+  const body = encodeURIComponent(`Nome: ${fields.name}\nEmail: ${fields.email}\nEmpresa: ${fields.company || '—'}\n\n${fields.message}`);
+  return `mailto:${content.contact.email}?subject=${subject}&body=${body}`;
+}
+
 function SubmitMark() {
   return (
     <span className="grid size-8 place-items-center rounded-full bg-[#071021]/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5" aria-hidden="true">
@@ -35,10 +38,11 @@ export function Contact() {
   const [errors, setErrors] = useState<FormErrors>(initialErrors);
   const [privacyChecked, setPrivacyChecked] = useState(false);
   const [privacyError, setPrivacyError] = useState('');
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaError, setCaptchaError] = useState('');
   const [status, setStatus] = useState<FormStatus>({ type: 'idle', message: '' });
-  const captchaRef = useRef<HCaptcha>(null);
+  const started = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const formStartedAt = useRef<number | null>(null);
+  useEffect(() => { formStartedAt.current = Date.now(); }, []);
 
   const validate = useCallback(() => {
     const nextErrors: FormErrors = { ...initialErrors };
@@ -56,14 +60,16 @@ export function Contact() {
 
     setErrors(nextErrors);
     setPrivacyError(privacyChecked ? '' : 'Confirma que leste a Política de Privacidade.');
-    setCaptchaError(captchaToken ? '' : 'Completa a verificação de segurança.');
-
-    return !Object.values(nextErrors).some(Boolean) && privacyChecked && Boolean(captchaToken);
-  }, [captchaToken, formData, privacyChecked]);
+    return !Object.values(nextErrors).some(Boolean) && privacyChecked;
+  }, [formData, privacyChecked]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!validate() || !captchaToken) return;
+    if (status.type === 'loading') return;
+    if (!validate()) {
+      requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
+      return;
+    }
 
     setStatus({ type: 'loading', message: 'A enviar pedido…' });
 
@@ -71,7 +77,8 @@ export function Contact() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, captchaToken }),
+        body: JSON.stringify({ ...formData, formElapsedMs: Date.now() - (formStartedAt.current ?? Date.now()), privacyAcknowledged: privacyChecked }),
+        signal: AbortSignal.timeout(20000),
       });
       const data = await response.json().catch(() => ({}));
 
@@ -80,16 +87,15 @@ export function Contact() {
       }
 
       setStatus({ type: 'success', message: 'Pedido enviado. Entraremos em contacto em breve.' });
+      trackEvent('contact_form_submit');
       setFormData(initialFields);
       setPrivacyChecked(false);
-    } catch (error) {
+    } catch {
+      window.location.href = buildMailto(formData);
       setStatus({
-        type: 'error',
-        message: error instanceof Error ? error.message : 'Não foi possível enviar o pedido. Tenta novamente.',
+        type: 'success',
+        message: `Abrimos o teu email. Confirma o envio para ${content.contact.email}.`,
       });
-    } finally {
-      captchaRef.current?.resetCaptcha();
-      setCaptchaToken(null);
     }
   };
 
@@ -103,8 +109,6 @@ export function Contact() {
   };
 
   const fieldClass = (hasError: boolean) => `field-shell ${hasError ? '!border-error/70' : ''}`;
-  const captchaConfigured = Boolean(HCAPTCHA_SITE_KEY);
-
   return (
     <Section id="contacto" className="border-t border-border bg-bg-surface">
       <div className="page-shell">
@@ -122,6 +126,7 @@ export function Contact() {
                     {content.contact.email}
                   </a>
                 </div>
+                <button type="button" className="whatsapp-button mt-6" aria-disabled="true" title="WhatsApp em breve">WhatsApp <span>Em breve</span></button>
                 <p className="max-w-[30rem] text-sm leading-relaxed text-text-secondary">{content.contact.responseTime}</p>
                 <p className="max-w-[30rem] text-sm leading-relaxed text-text-muted">{content.contact.betaNote}</p>
               </div>
@@ -130,7 +135,8 @@ export function Contact() {
 
           <ScrollReveal delay={0.1}>
             <div className="rounded-[1.9rem] border border-white/[0.08] bg-white/[0.03] p-2">
-              <form onSubmit={handleSubmit} noValidate className="rounded-[1.45rem] border border-white/[0.065] bg-bg-primary p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.045)] sm:p-9">
+              <form ref={formRef} onSubmit={handleSubmit} onFocusCapture={() => { if (!started.current) { started.current = true; trackEvent('contact_form_start'); } }} noValidate aria-busy={status.type === 'loading'} className="rounded-[1.45rem] border border-white/[0.065] bg-bg-primary p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.045)] sm:p-9">
+                <noscript><p>Para enviar o formulário, ativa JavaScript ou contacta geral@shift.pt por email.</p></noscript>
                 <div className="honeypot" aria-hidden="true">
                   <label htmlFor="website">Website</label>
                   <input id="website" name="website" type="text" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
@@ -173,12 +179,12 @@ export function Contact() {
                 <div className="mt-6 rounded-2xl border border-border bg-white/[0.025] p-4">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-sm font-semibold text-text-primary">Verificação de segurança</p>
-                      <p className="mt-1 max-w-[19rem] text-xs leading-relaxed text-text-muted">Protege o formulário contra envios automáticos.</p>
+                      <p className="text-sm font-semibold text-text-primary">Proteção anti-spam automática</p>
+                      <p className="mt-1 max-w-[19rem] text-xs leading-relaxed text-text-muted">Proteção invisível, sem CAPTCHA externo nem recolha adicional de dados.</p>
                     </div>
-                    {captchaConfigured ? <HCaptcha ref={captchaRef} sitekey={HCAPTCHA_SITE_KEY} size="compact" theme="dark" languageOverride="pt" loadAsync={false} cleanup={false} onVerify={(token) => { setCaptchaToken(token); setCaptchaError(''); }} onExpire={() => setCaptchaToken(null)} onError={() => { setCaptchaToken(null); setCaptchaError('A verificação falhou. Tenta novamente.'); }} /> : <p className="text-xs text-error">Captcha por configurar.</p>}
+                    <span className="text-xs font-semibold uppercase tracking-[0.12em] text-success">Ativo</span>
                   </div>
-                  {captchaError && <p className="mt-3 text-xs text-error" role="alert">{captchaError}</p>}
+                  <p className="mt-3 text-xs leading-6 text-text-secondary">Usamos um campo armadilha invisível e um tempo mínimo de preenchimento para bloquear envios automáticos.</p>
                 </div>
 
                 <div className="mt-5">
@@ -198,8 +204,8 @@ export function Contact() {
                   <div aria-live="polite" className="min-h-5 text-sm">
                     {status.message && <p className={status.type === 'error' ? 'text-error' : status.type === 'success' ? 'text-success' : 'text-text-muted'}>{status.message}</p>}
                   </div>
-                  <Button type="submit" variant="primary" disabled={status.type === 'loading' || !captchaConfigured} className="w-full shrink-0 sm:w-auto">
-                    {status.type === 'loading' ? 'A enviar…' : 'Pedir demonstração'}
+                  <Button type="submit" variant="primary" disabled={status.type === 'loading'} className="w-full shrink-0 sm:w-auto">
+                    {status.type === 'loading' ? 'A enviar…' : 'Marcar demonstração'}
                     {status.type !== 'loading' && <SubmitMark />}
                   </Button>
                 </div>

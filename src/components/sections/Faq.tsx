@@ -4,7 +4,7 @@ import { Section } from './Section';
 
 export function Faq() {
   return (
-    <Section id="faq" className="border-t border-border bg-bg-primary">
+    <Section id="faq" className="faq border-t border-border bg-bg-primary">
       <div className="page-shell">
         <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
           <ScrollReveal>

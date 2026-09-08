@@ -7,7 +7,7 @@ export function NotFound() {
       <PageMeta
         title="Página não encontrada — SHIFT AI SOLUTIONS"
         description="A página pedida não existe."
-        path={window.location.pathname}
+        path="/404"
         noIndex
       />
       <section className="flex min-h-[78dvh] items-center pt-28">

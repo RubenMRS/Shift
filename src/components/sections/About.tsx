@@ -33,11 +33,11 @@ export function About() {
               <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-border pt-7">
                 <div>
                   <dt className="text-xs text-text-muted">Estrutura</dt>
-                  <dd className="mt-2 font-heading text-xl font-semibold text-text-primary">Três áreas, uma equipa</dd>
+                  <dd className="mt-2 font-heading text-xl font-semibold text-text-primary">Equipa SHIFT · Portugal</dd>
                 </div>
                 <div>
                   <dt className="text-xs text-text-muted">Foco atual</dt>
-                  <dd className="mt-2 font-heading text-xl font-semibold text-text-primary">Parceiros-piloto</dd>
+                  <dd className="mt-2 font-heading text-xl font-semibold text-text-primary">Smart Call</dd>
                 </div>
               </dl>
             </ScrollReveal>
