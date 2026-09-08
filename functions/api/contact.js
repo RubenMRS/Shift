@@ -84,7 +84,8 @@ export async function onRequestPost({ request, env }) {
         }),
         signal: AbortSignal.timeout(10000),
       });
-    } catch {
+    } catch (error) {
+      console.error('Contact email provider request failed', error instanceof Error ? error.message : 'unknown error');
       return json({ success: false, error: 'O serviço de email não respondeu. Tenta novamente ou usa o email.' }, 502);
     }
   } else if (env.CONTACT_WEBHOOK_URL) {
@@ -97,7 +98,8 @@ export async function onRequestPost({ request, env }) {
         signal: AbortSignal.timeout(8000),
         redirect: 'error',
       });
-    } catch {
+    } catch (error) {
+      console.error('Contact webhook request failed', error instanceof Error ? error.message : 'unknown error');
       return json({ success: false, error: 'O serviço de contacto não respondeu. Tenta novamente ou usa o email.' }, 502);
     }
   } else {
@@ -105,7 +107,10 @@ export async function onRequestPost({ request, env }) {
   }
 
   if (!delivery.ok) {
-    return json({ success: false, error: 'Não foi possível enviar o pedido. Tenta novamente ou usa o email.' }, 502);
+    let providerDetail = '';
+    try { providerDetail = (await delivery.clone().text()).slice(0, 500); } catch { /* keep provider errors out of the response */ }
+    console.error('Contact email provider rejected request', { status: delivery.status, detail: providerDetail });
+    return json({ success: false, error: `O serviço de email rejeitou o pedido (HTTP ${delivery.status}). Confirma o remetente e o domínio verificados no Resend.` }, 502);
   }
 
   return json({ success: true });
