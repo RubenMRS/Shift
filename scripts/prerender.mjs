@@ -1,6 +1,9 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { render, routes, routeMeta, structuredData, SITE_URL } from '../dist-ssr/entry-server.js';
+
+const ssrEntry = (await readdir('dist-ssr')).find((file) => /^entry-server(?:-[\w-]+)?\.js$/.test(file));
+if (!ssrEntry) throw new Error('SSR entry not found in dist-ssr');
+const { render, routes, routeMeta, structuredData, SITE_URL } = await import(new URL(`../dist-ssr/${ssrEntry}`, import.meta.url));
 
 const template = await readFile('dist/index.html', 'utf8');
 const hashes = new Set();
