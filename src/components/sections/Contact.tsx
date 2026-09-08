@@ -90,7 +90,13 @@ export function Contact() {
       trackEvent('contact_form_submit');
       setFormData(initialFields);
       setPrivacyChecked(false);
-    } catch {
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : '';
+      const isApiError = Boolean(errorMessage) && !['Failed to fetch', 'Load failed', 'Network request failed'].includes(errorMessage);
+      if (isApiError) {
+        setStatus({ type: 'error', message: `${errorMessage} Se preferires, envia diretamente para ${content.contact.email}.` });
+        return;
+      }
       window.location.href = buildMailto(formData);
       setStatus({
         type: 'success',
