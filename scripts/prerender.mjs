@@ -1,9 +1,25 @@
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
-const ssrEntry = (await readdir('dist-ssr')).find((file) => /^entry-server(?:-[\w-]+)?\.js$/.test(file));
+async function findSsrEntry(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  for (const entry of entries) {
+    const file = join(directory, entry.name);
+    if (entry.isDirectory()) {
+      const nested = await findSsrEntry(file);
+      if (nested) return nested;
+    } else if (entry.isFile() && entry.name.startsWith('entry-server') && entry.name.endsWith('.js')) {
+      return file;
+    }
+  }
+  return null;
+}
+
+const ssrEntry = await findSsrEntry(resolve('dist-ssr'));
 if (!ssrEntry) throw new Error('SSR entry not found in dist-ssr');
-const { render, routes, routeMeta, structuredData, SITE_URL } = await import(new URL(`../dist-ssr/${ssrEntry}`, import.meta.url));
+const { render, routes, routeMeta, structuredData, SITE_URL } = await import(pathToFileURL(ssrEntry).href);
 
 const template = await readFile('dist/index.html', 'utf8');
 const hashes = new Set();
