@@ -110,7 +110,7 @@ export async function onRequestPost({ request, env }) {
     let providerDetail = '';
     try { providerDetail = (await delivery.clone().text()).slice(0, 500); } catch { /* keep provider errors out of the response */ }
     console.error('Contact email provider rejected request', { status: delivery.status, detail: providerDetail });
-    return json({ success: false, error: `O serviço de email rejeitou o pedido (HTTP ${delivery.status}). Confirma o remetente e o domínio verificados no Resend.` }, 502);
+    return json({ success: false, error: `O serviço de email rejeitou o pedido (HTTP ${delivery.status}). Detalhe: ${providerDetail}` }, 502);
   }
 
   return json({ success: true });
