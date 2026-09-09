@@ -142,7 +142,7 @@ export function Contact() {
           <ScrollReveal delay={0.1}>
             <div className="rounded-[1.9rem] border border-white/[0.08] bg-white/[0.03] p-2">
               <form ref={formRef} onSubmit={handleSubmit} onFocusCapture={() => { if (!started.current) { started.current = true; trackEvent('contact_form_start'); } }} noValidate aria-busy={status.type === 'loading'} className="rounded-[1.45rem] border border-white/[0.065] bg-bg-primary p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.045)] sm:p-9">
-                <noscript><p>Para enviar o formulário, ativa JavaScript ou contacta geral@shift.pt por email.</p></noscript>
+                <noscript><p>Para enviar o formulário, ativa JavaScript ou contacta geral@shiftai.pt por email.</p></noscript>
                 <div className="honeypot" aria-hidden="true">
                   <label htmlFor="website">Website</label>
                   <input id="website" name="website" type="text" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />

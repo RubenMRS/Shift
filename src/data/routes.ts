@@ -13,6 +13,6 @@ export function routeMeta(path: string) {
 }
 
 export function structuredData(_path: string) {
-  const organization = { '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: 'SHIFT AI Solutions', url: `${SITE_URL}/`, logo: `${SITE_URL}/shift-mark.png`, contactPoint: { '@type': 'ContactPoint', email: 'geral@shift.pt', contactType: 'sales', availableLanguage: 'Portuguese' } };
+  const organization = { '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: 'SHIFT AI Solutions', url: `${SITE_URL}/`, logo: `${SITE_URL}/shift-mark.png`, contactPoint: { '@type': 'ContactPoint', email: 'geral@shiftai.pt', contactType: 'sales', availableLanguage: 'Portuguese' } };
   return { '@context': 'https://schema.org', '@graph': [organization, { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, name: 'SHIFT AI Solutions', url: `${SITE_URL}/`, inLanguage: 'pt-PT', publisher: { '@id': organization['@id'] } }] };
 }

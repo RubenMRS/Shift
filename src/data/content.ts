@@ -112,7 +112,7 @@ export const content = {
     title: "Queres ouvir como a SHIFT atenderia os teus clientes?",
     subtitle:
       "Conta-nos como funciona hoje o teu atendimento. Preparamos uma demonstração focada no teu caso, sem compromisso.",
-    email: "geral@shift.pt",
+    email: "geral@shiftai.pt",
     responseTime: "A equipa entra em contacto para perceber o pedido e combinar os próximos passos.",
     betaNote: "Smart Call em acesso antecipado. Âmbito e disponibilidade confirmados na demonstração.",
   },

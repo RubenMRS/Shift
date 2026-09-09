@@ -8,7 +8,7 @@ const privacySections = [
   {
     title: '1. Responsável pelo tratamento',
     paragraphs: [
-      'Para questões sobre o tratamento de dados neste website, contacta a equipa SHIFT através de geral@shift.pt.',
+      'Para questões sobre o tratamento de dados neste website, contacta a equipa SHIFT através de geral@shiftai.pt.',
       'Informação em atualização: falta confirmar a identificação jurídica completa e a morada do responsável pelo tratamento.',
     ],
   },
@@ -41,7 +41,7 @@ const privacySections = [
   {
     title: '6. Direitos',
     paragraphs: [
-      'Podes pedir acesso, retificação, apagamento, limitação, oposição ou portabilidade, quando aplicável, através de geral@shift.pt. Também podes apresentar reclamação à Comissão Nacional de Proteção de Dados.',
+      'Podes pedir acesso, retificação, apagamento, limitação, oposição ou portabilidade, quando aplicável, através de geral@shiftai.pt. Também podes apresentar reclamação à Comissão Nacional de Proteção de Dados.',
     ],
   },
   {
@@ -54,7 +54,7 @@ const privacySections = [
 ];
 
 const termsSections = [
-  { title: 'Identificação da entidade', paragraphs: ['Informação em atualização: razão social, NIF e morada da entidade responsável ainda precisam de ser confirmados. Contacto disponível: geral@shift.pt.'] },
+  { title: 'Identificação da entidade', paragraphs: ['Informação em atualização: razão social, NIF e morada da entidade responsável ainda precisam de ser confirmados. Contacto disponível: geral@shiftai.pt.'] },
   {
     title: '1. Âmbito',
     paragraphs: [
@@ -88,7 +88,7 @@ const termsSections = [
   {
     title: '6. Lei aplicável e contacto',
     paragraphs: [
-      'Aplica-se a lei portuguesa, sem prejuízo de normas imperativas. Para questões sobre estes termos, escreve para geral@shift.pt.',
+      'Aplica-se a lei portuguesa, sem prejuízo de normas imperativas. Para questões sobre estes termos, escreve para geral@shiftai.pt.',
     ],
   },
 ];

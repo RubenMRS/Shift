@@ -45,7 +45,7 @@ const getStructuredData = typeof structuredData === 'function' ? structuredData 
     name: 'SHIFT AI Solutions',
     url: `${siteUrl}/`,
     logo: `${siteUrl}/shift-mark.png`,
-    contactPoint: { '@type': 'ContactPoint', email: 'geral@shift.pt', contactType: 'sales', availableLanguage: 'Portuguese' },
+    contactPoint: { '@type': 'ContactPoint', email: 'geral@shiftai.pt', contactType: 'sales', availableLanguage: 'Portuguese' },
   }],
 });
 

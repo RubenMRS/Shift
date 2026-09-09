@@ -68,7 +68,7 @@ export async function onRequestPost({ request, env }) {
     return json({ success: false, error: 'Preenche o formulário normalmente e tenta novamente.' }, 400);
   }
 
-  const payload = { to: 'geral@shift.pt', name, email, company, message, source: 'shiftai.pt', privacyAcknowledged: true };
+  const payload = { to: 'geral@shiftai.pt', name, email, company, message, source: 'shiftai.pt', privacyAcknowledged: true };
   let delivery;
   if (env.RESEND_API_KEY) {
     try {
@@ -77,7 +77,7 @@ export async function onRequestPost({ request, env }) {
         headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
           from: env.CONTACT_FROM_EMAIL || 'SHIFT Website <onboarding@resend.dev>',
-          to: ['geral@shift.pt'],
+          to: ['geral@shiftai.pt'],
           reply_to: email,
           subject: `Novo pedido de demonstração — ${name}`,
           text: `Nome: ${name}\nEmail: ${email}\nEmpresa: ${company || '—'}\n\n${message}`,
@@ -103,7 +103,7 @@ export async function onRequestPost({ request, env }) {
       return json({ success: false, error: 'O serviço de contacto não respondeu. Tenta novamente ou usa o email.' }, 502);
     }
   } else {
-    return json({ success: false, error: 'O envio ainda não está configurado. Usa o email geral@shift.pt.' }, 503);
+    return json({ success: false, error: 'O envio ainda não está configurado. Usa o email geral@shiftai.pt.' }, 503);
   }
 
   if (!delivery.ok) {

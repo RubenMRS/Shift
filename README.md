@@ -29,7 +29,7 @@ O formulário usa proteção anti-spam própria, sem CAPTCHA externo. Para envio
 - `CONTACT_FROM_EMAIL`: remetente verificado no Resend, opcional.
 - `CONTACT_WEBHOOK_URL`: endpoint seguro que recebe pedidos já validados.
 
-Os pedidos são enviados para `geral@shift.pt`. Sem Resend ou webhook configurado, o formulário abre um email pré-preenchido como fallback.
+Os pedidos são enviados para `geral@shiftai.pt`. Sem Resend ou webhook configurado, o formulário abre um email pré-preenchido como fallback.
 
 ## Publicação
 

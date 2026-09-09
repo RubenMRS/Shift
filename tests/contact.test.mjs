@@ -27,7 +27,7 @@ test('forwards to the configured webhook without CAPTCHA', async () => {
     assert.equal((await onRequestPost({ request: request(valid), env })).status, 200);
     assert.equal(calls.length, 1);
     const delivered = JSON.parse(calls[0].options.body);
-    assert.equal(delivered.to, 'geral@shift.pt');
+    assert.equal(delivered.to, 'geral@shiftai.pt');
     assert.equal(delivered.email, valid.email);
     globalThis.fetch = async () => new Response(JSON.stringify({ success: false }), { status: 500 });
     assert.equal((await onRequestPost({ request: request(valid), env })).status, 502);
